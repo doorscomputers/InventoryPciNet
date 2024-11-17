@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="Branches_TransfersTo_ListView" DataAccessMode="Server" AllowUnlink="False" AllowLink="False" />
+  </Views>
+</Application>

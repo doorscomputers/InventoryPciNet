@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Inventory.Module.BusinessObjects.SaleRefund">
+      <AppearanceRules Id="AppearanceRules">
+        <AppearanceRule Id="Refundcompleted" Criteria="[SaleHeader] Is Not Null" TargetItems="*" />
+      </AppearanceRules>
+    </Class>
+  </BOModel>
+</Application>

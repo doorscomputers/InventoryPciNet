@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="Inventory Management System" Logo="Database_32x32" Description="Inventory and Sales Monitoring System" Copyright="2024" Company="PCNET" VersionFormat="Version {2}.{1}.{2}">
+  <ActionDesign>
+    <Actions>
+      <Action Id="DeliveryHeader.ActionMethod" TargetObjectsCriteria="[DeliveryStatus] &lt;&gt; ##Enum#DeliveryStatus,Completed#" />
+    </Actions>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser" Caption="Base User" />
+    <Class Name="Inventory.Module.BusinessObjects.BranchStock">
+      <OwnMembers>
+        <Member Name="Quantity" Caption="Available" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Options>
+    <LayoutManagerOptions RequiredFieldMark="*" />
+  </Options>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="23.2.5.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="23.2.5.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <ListView Id="BranchStock_ListView" DataAccessMode="Server" />
+    <ListView Id="BranchStock_LookupListView" AllowLink="False" AllowDelete="False" ShowAutoFilterRow="False" ShowFindPanel="False" AllowNew="False" DataAccessMode="Server">
+      <Columns>
+        <ColumnInfo Id="Branch" Index="-1" />
+        <ColumnInfo Id="Cost" Index="-1" />
+        <ColumnInfo Id="Stock" Index="0" Caption="Item Name" />
+        <ColumnInfo Id="Stock_Copy" PropertyName="Stock" Index="1" Caption="Item Code" LookupProperty="ItemCode" IsNewNode="True" />
+        <ColumnInfo Id="Price" Index="3" />
+      </Columns>
+    </ListView>
+    <ListView Id="DeliveryHeader_DeliveryDetails_ListView" AllowEdit="True" AllowLink="False" AllowUnlink="False" />
+    <DetailView Id="DeliveryHeader_DetailView">
+      <Items>
+        <PropertyEditor Id="Branch" AllowEdit="False" />
+      </Items>
+    </DetailView>
+    <DetailView Id="ManualInventory_DetailView">
+      <Items>
+        <PropertyEditor Id="Branch" AllowEdit="False" />
+        <PropertyEditor Id="ManualInvStatus" AllowEdit="False" />
+      </Items>
+    </DetailView>
+    <ListView Id="SaleDetail_ListView" DataAccessMode="Server" AllowEdit="True" AllowLink="False" AllowUnlink="False" NewItemRowPosition="Bottom" />
+    <DetailView Id="SaleHeader_DetailView">
+      <Items>
+        <PropertyEditor Id="Branch" AllowEdit="False" />
+      </Items>
+    </DetailView>
+    <ListView Id="SaleHeader_ListView" DataAccessMode="Server" AllowUnlink="False" AllowLink="False" />
+    <ListView Id="SaleHeader_SaleDetails_ListView" DataAccessMode="Server" AllowUnlink="False" AllowLink="False" AllowEdit="True" IsFooterVisible="True" NewItemRowPosition="Bottom">
+      <Columns>
+        <ColumnInfo Id="Discount" Width="86" />
+        <ColumnInfo Id="Total" Width="118" />
+      </Columns>
+    </ListView>
+    <ListView Id="Stock_ListView" DataAccessMode="Server" />
+    <ListView Id="Stock_LookupListView" Filter="" Criteria="[Active] = True" />
+    <DetailView Id="Transfer_DetailView">
+      <Items>
+        <PropertyEditor Id="FromBranch" AllowEdit="False" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

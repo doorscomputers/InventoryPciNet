@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="BranchStock_SaleDetails_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="Server" />
+    <DetailView Id="SaleDetail_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="BranchStock" AllowEdit="True" LookupProperty="Stock.ItemName" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

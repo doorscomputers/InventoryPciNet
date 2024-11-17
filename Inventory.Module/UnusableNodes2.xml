@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Inventory.Module.BusinessObjects.DeliveryHeader">
+      <AppearanceRules Id="AppearanceRules">
+        <AppearanceRule Id="DlvryCancelled1" AppearanceItemType="ViewItem" />
+      </AppearanceRules>
+    </Class>
+  </BOModel>
+</Application>

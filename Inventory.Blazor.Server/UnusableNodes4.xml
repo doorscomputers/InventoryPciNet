@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="TransferDetail_ListView_Copy_Copy">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Transfer.ToBranch.BranchName" PropertyName="Transfer.ToBranch.BranchName" Index="2" Caption="To Branch" Width="217" />
+      </Columns>
+    </ListView>
+    <ListView Id="TransferDetail_ListView_Copy">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Transfer.ToBranch.BranchName" PropertyName="Transfer.ToBranch.BranchName" Index="2" Caption="To Branch" Width="217" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>
