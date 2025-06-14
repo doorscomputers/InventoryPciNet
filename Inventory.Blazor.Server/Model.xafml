@@ -17,6 +17,12 @@
         <Member Name="Stock" AllowEdit="False" AllowClear="False" />
       </OwnMembers>
     </Class>
+    <Class Name="Inventory.Module.BusinessObjects.BranchStockPivot">
+      <OwnMembers>
+        <Member Name="MainStore" DisplayFormat="" />
+        <Member Name="TotalStocks" EditMask="N2" DisplayFormat="{0:N2}" />
+      </OwnMembers>
+    </Class>
     <Class Name="Inventory.Module.BusinessObjects.DeliveryHeader">
       <OwnMembers>
         <Member Name="Branch" AllowEdit="False" AllowClear="False" />
@@ -95,6 +101,7 @@
           <Item Id="ItemLedger_ListView" Index="2" Removed="True" />
           <Item Id="Employee_ListView" ViewId="Employee_ListView" ObjectKey="" Index="3" IsNewNode="True" />
           <Item Id="Branch_ListView" Removed="True" />
+          <Item Id="OhhDhit" ViewId="AuditDataItemPersistent_ListView" IsNewNode="True" />
         </Items>
       </Item>
       <Item Id="Sales" Index="3">
@@ -183,7 +190,8 @@
       <Item Id="@cc770b21-288f-4805-9242-351c39c614fe_Copy_Copy_Copy" Caption="Warehouse Export Reports" Index="12" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="@c97e35ba-5e0c-405f-b14c-c1c65f009adc" Caption="Delivery Serials" Index="4" ViewId="DeliverySerial_ListView_Copy_Copy" IsNewNode="True" />
-          <Item Id="@15e0cd65-b921-47c2-bf6d-b84b8c2b0fe3" Caption="Items Delivered" Index="5" ViewId="DeliveryDetail_ListView_Copy_Copy" IsNewNode="True" />
+          <Item Id="@15e0cd65-b921-47c2-bf6d-b84b8c2b0fe3" Caption="Items Delivered" Index="5" ViewId="DeliveryDetail_ListView_Copy_Copy" ImageName="Shopping_Delivery" IsNewNode="True" />
+          <Item Id="@15e0cd65-b921-47c2-bf6d-b84b8c2b0fe3_Copy" Caption="Items Delivered Version 2" Index="5" ViewId="DeliveryDetail_ListView_For_Jheirone" ImageName="Shopping_Delivery" IsNewNode="True" />
           <Item Id="@97031604-ea66-453c-b8cc-cff40ad212ca" Caption="BO Serial Nos." Index="6" ViewId="BoSerial_ListView_Copy_Copy" IsNewNode="True" />
           <Item Id="@2892326f-ecce-4370-bc68-5ad18f631be4" Caption="BO Items" Index="7" ViewId="BoDetail_ListView_Copy_Copy" IsNewNode="True" />
           <Item Id="@e1facf3d-45e7-4c12-a74b-cccb80845e67" Caption="Counted Items" Index="8" ViewId="ManualInventoryDetail_ListView_Copy_Copy" IsNewNode="True" />
@@ -219,6 +227,17 @@
     <SchemaModule Name="SystemModule" Version="23.2.5.0" IsNewNode="True" />
   </SchemaModules>
   <Views DefaultListEditor="DevExpress.ExpressApp.Blazor.Editors.DxGridListEditor">
+    <ListView Id="AuditDataItemPersistent_ListView">
+      <Columns>
+        <ColumnInfo Id="UserName" Width="201" />
+        <ColumnInfo Id="ModifiedOn" Width="132" />
+        <ColumnInfo Id="OperationType" Width="177" />
+        <ColumnInfo Id="PropertyName" Width="179" />
+        <ColumnInfo Id="Description" Index="4" />
+        <ColumnInfo Id="OldValue" Index="5" />
+        <ColumnInfo Id="NewValue" Index="6" />
+      </Columns>
+    </ListView>
     <ListView Id="Bo_BoDetails_ListView" AllowLink="False" AllowUnlink="False" DataAccessMode="Server" AllowEdit="True">
       <HiddenActions>
         <ActionLink ActionId="SaveAndCloseBo" IsNewNode="True" />
@@ -503,6 +522,7 @@
       </Columns>
     </ListView>
     <ListView Id="BranchStock_LookupListView" DataAccessMode="Server" />
+    <ListView Id="BranchStockPivot_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="Client" />
     <ListView Id="Brand_ListView" DataAccessMode="Server" AllowUnlink="False" AllowLink="False" />
     <ListView Id="Brand_LookupListView" DataAccessMode="Server" />
     <ListView Id="Category_ListView" DataAccessMode="Server" AllowLink="False" AllowUnlink="False" />
@@ -669,6 +689,39 @@
           </Summary>
         </ColumnInfo>
         <ColumnInfo Id="Remark" PropertyName="Remark" Index="13" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="DeliveryDetail_ListView_For_Jheirone" ClassName="Inventory.Module.BusinessObjects.DeliveryDetail" AllowLink="False" AllowUnlink="False" DataAccessMode="Client" AllowDelete="False" AllowNew="False" ShowAutoFilterRow="True" ShowFindPanel="True" IsFooterVisible="True" DetailViewID="DeliveryDetail_DetailView_Copy" Criteria="[DeliveryHeader] Is Not Null" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Amount" PropertyName="Amount" Index="-1" IsNewNode="True">
+          <Summary IsNewNode="True">
+            <ColumnSummaryItem Id="Summary0" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="Branch" PropertyName="Branch" Index="-1" PropertyEditorType="DevExpress.ExpressApp.Blazor.Editors.DefaultPropertyEditor" IsNewNode="True" />
+        <ColumnInfo Id="DeliveryHeader" PropertyName="DeliveryHeader" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="DeliveryHeader.Branch.BranchName" PropertyName="DeliveryHeader.Branch.BranchName" Index="-1" Width="221" IsNewNode="True">
+          <Summary IsNewNode="True">
+            <ColumnSummaryItem Id="Summary0" SummaryType="Count" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DeliveryHeader.InvoiceNumber" PropertyName="DeliveryHeader.InvoiceNumber" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="DeliveryHeader.Supplier.SupplierName" PropertyName="DeliveryHeader.Supplier.SupplierName" Index="-1" Width="243" IsNewNode="True" />
+        <ColumnInfo Id="Discount" PropertyName="Discount" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Remark" PropertyName="Remark" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="SubTotal" PropertyName="SubTotal" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="DeliveryHeader.DateDelivered" PropertyName="DeliveryHeader.DateDelivered" Index="0" Width="96" IsNewNode="True" />
+        <ColumnInfo Id="Stock" PropertyName="Stock" Index="1" PropertyEditorType="DevExpress.ExpressApp.Blazor.Editors.DefaultPropertyEditor" Width="198" IsNewNode="True" />
+        <ColumnInfo Id="ItemName" PropertyName="ItemName" Index="2" Width="245" IsNewNode="True" />
+        <ColumnInfo Id="Stock.Category.CategoryName" PropertyName="Stock.Category.CategoryName" Index="3" Width="208" IsNewNode="True" />
+        <ColumnInfo Id="Stock.Brand.BrandName" PropertyName="Stock.Brand.BrandName" Index="4" Width="164" IsNewNode="True" />
+        <ColumnInfo Id="QtyDelivered" PropertyName="QtyDelivered" Index="5" Width="91" IsNewNode="True">
+          <Summary IsNewNode="True">
+            <ColumnSummaryItem Id="Summary0" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="Cost" PropertyName="Cost" Index="6" Width="65" IsNewNode="True" />
+        <ColumnInfo Id="Stock.Price" PropertyName="Stock.Price" Index="7" Width="83" IsNewNode="True" />
       </Columns>
     </ListView>
     <ListView Id="DeliveryDetail_LookupListView" DataAccessMode="Server" />
@@ -1130,15 +1183,16 @@
         <ColumnInfo Id="Discount" PropertyName="Discount" Index="-1" AllowEdit="False" IsNewNode="True" />
         <ColumnInfo Id="SaleHeader" PropertyName="SaleHeader" Index="-1" AllowClear="False" AllowEdit="False" IsNewNode="True" />
         <ColumnInfo Id="Branch" PropertyName="Branch" Index="0" AllowClear="False" IsNewNode="True" />
-        <ColumnInfo Id="Stock" PropertyName="Stock" Index="1" PropertyEditorType="DevExpress.ExpressApp.Editors.DetailPropertyEditor" Caption="Item Code" AllowEdit="False" IsNewNode="True" />
-        <ColumnInfo Id="ItemName" PropertyName="ItemName" SortIndex="0" SortOrder="Ascending" Index="2" Width="347" AllowEdit="False" IsNewNode="True" />
-        <ColumnInfo Id="Stock.Category.CategoryName" PropertyName="Stock.Category.CategoryName" Index="3" IsNewNode="True" />
-        <ColumnInfo Id="Stock.Brand.BrandName" PropertyName="Stock.Brand.BrandName" Index="4" IsNewNode="True" />
-        <ColumnInfo Id="Price" PropertyName="Price" Index="5" AllowEdit="False" IsNewNode="True" />
-        <ColumnInfo Id="QtySold" PropertyName="QtySold" Index="6" AllowEdit="False" IsNewNode="True" />
-        <ColumnInfo Id="SubTotal" PropertyName="SubTotal" Index="7" IsNewNode="True" />
-        <ColumnInfo Id="Total" PropertyName="Total" Index="8" IsNewNode="True" />
-        <ColumnInfo Id="Remark" PropertyName="Remark" Index="9" AllowEdit="False" IsNewNode="True" />
+        <ColumnInfo Id="SaleHeader.SoldDate" PropertyName="SaleHeader.SoldDate" Index="1" IsNewNode="True" />
+        <ColumnInfo Id="Stock" PropertyName="Stock" Index="2" PropertyEditorType="DevExpress.ExpressApp.Editors.DetailPropertyEditor" Caption="Item Code" AllowEdit="False" IsNewNode="True" />
+        <ColumnInfo Id="ItemName" PropertyName="ItemName" SortIndex="0" SortOrder="Ascending" Index="3" Width="347" AllowEdit="False" IsNewNode="True" />
+        <ColumnInfo Id="Stock.Category.CategoryName" PropertyName="Stock.Category.CategoryName" Index="4" IsNewNode="True" />
+        <ColumnInfo Id="Stock.Brand.BrandName" PropertyName="Stock.Brand.BrandName" Index="5" IsNewNode="True" />
+        <ColumnInfo Id="Price" PropertyName="Price" Index="6" AllowEdit="False" IsNewNode="True" />
+        <ColumnInfo Id="QtySold" PropertyName="QtySold" Index="7" AllowEdit="False" IsNewNode="True" />
+        <ColumnInfo Id="SubTotal" PropertyName="SubTotal" Index="8" IsNewNode="True" />
+        <ColumnInfo Id="Total" PropertyName="Total" Index="9" IsNewNode="True" />
+        <ColumnInfo Id="Remark" PropertyName="Remark" Index="10" AllowEdit="False" IsNewNode="True" />
       </Columns>
     </ListView>
     <ListView Id="SaleDetail_ListView_Copy_Copy" ClassName="Inventory.Module.BusinessObjects.SaleDetail" DataAccessMode="Client" AllowLink="False" AllowUnlink="False" AllowDelete="False" AllowNew="False" ShowAutoFilterRow="True" ShowFindPanel="True" IsFooterVisible="True" DetailViewID="SaleDetail_DetailView_Copy" Criteria="[SaleHeader] Is Not Null" IsNewNode="True">
@@ -1193,6 +1247,39 @@
         <ActionLink ActionId="SaveAndClose" IsNewNode="True" />
         <ActionLink ActionId="SaveAndNew" IsNewNode="True" />
       </HiddenActions>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="29.81260647359455">
+            <LayoutGroup Id="SaleHeader" RelativeSize="100">
+              <LayoutGroup Id="SaleHeader_col1" RelativeSize="49.95483288166215">
+                <LayoutItem Id="Customer" RelativeSize="23.529411764705884" />
+                <LayoutItem Id="SoldDate" RelativeSize="17.647058823529413" />
+                <LayoutItem Id="SubTotal" RelativeSize="17.647058823529413" />
+                <LayoutItem Id="RefundSubTotal" RelativeSize="17.647058823529413" />
+                <LayoutItem Id="Discount" RelativeSize="23.529411764705884" />
+              </LayoutGroup>
+              <LayoutGroup Id="SaleHeader_col2" RelativeSize="50.04516711833785">
+                <LayoutItem Id="TotalAmount" RelativeSize="23.529411764705884" />
+                <LayoutItem Id="PaymentTotal" RelativeSize="17.647058823529413" />
+                <LayoutItem Id="PaymentBalance" RelativeSize="17.647058823529413" />
+                <LayoutItem Id="Remarks" RelativeSize="41.1764705882353" />
+                <LayoutItem Id="SaleStatus" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="70.18739352640546">
+            <LayoutGroup Id="SaleDetails" RelativeSize="100">
+              <LayoutItem Id="SaleDetails" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="SaleRefunds" RelativeSize="100">
+              <LayoutItem Id="SaleRefunds" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="CustomerPayments" RelativeSize="100">
+              <LayoutItem Id="CustomerPayments" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
     </DetailView>
     <DetailView Id="SaleHeader_DetailView_Copy" CaptionColon=":" EnableCaptionColon="False" CaptionLocation="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" CaptionWordWrap="Default" EnableLayoutGroupImages="True" CustomizationEnabled="True" RequiredFieldMark="*" ClassName="Inventory.Module.BusinessObjects.SaleHeader" AllowDelete="False" AllowEdit="False" AllowNew="False" IsNewNode="True">
       <HiddenActions IsNewNode="True">
@@ -1759,6 +1846,7 @@
       <Columns>
         <ColumnInfo Id="ItemCode" Width="135" />
         <ColumnInfo Id="ItemName" PropertyName="ItemName" Index="1" Width="350" IsNewNode="True" />
+        <ColumnInfo Id="Cost" PropertyName="Cost" Index="2" Width="1" IsNewNode="True" />
       </Columns>
     </ListView>
     <ListView Id="Supplier_ListView" AllowLink="False" AllowUnlink="False" DataAccessMode="Server" />
