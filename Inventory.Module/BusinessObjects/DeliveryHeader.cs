@@ -1,6 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.PivotGrid.PivotTable;
@@ -56,42 +57,19 @@ namespace Inventory.Module.BusinessObjects
             CreatedBy = currentUser;
         }
 
-        //[Action(Caption = "Delivery Completed?", ConfirmationMessage = "Are you sure you checked and counted the items received correctly and encoding is already complete?", ImageName = "Attention", AutoCommit = true)]
-        //public void ActionMethod()
-        //{
-        //    // Trigger a custom business logic for the current record in the UI (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112619.aspx).
-
-        //    if (InvoiceNumber != null & Supplier != null)
-        //    {
-        //        if (this.DeliveryStatus == DeliveryStatus.Encoding)
-        //        {
-        //            this.DeliveryStatus = DeliveryStatus.Completed;
-        //        }
-        //    }
-        //}
-
-        [Action(Caption = "Delivery Completed?", 
-        ConfirmationMessage = "Are you sure you checked and counted the items received correctly and encoding is already complete?", 
-        ImageName = "Attention", 
-        AutoCommit = true)]
-        
+        [Action(Caption = "Delivery Completed?", ConfirmationMessage = "Are you sure you checked and counted the items received correctly and encoding is already complete?", ImageName = "Attention", AutoCommit = true)]
         public void ActionMethod()
-{
-    // Trigger a custom business logic for the current record in the UI.
+        {
+            // Trigger a custom business logic for the current record in the UI (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112619.aspx).
 
-    // Guard clauses to make the code more readable.
-    if (InvoiceNumber == null || Supplier == null)
-    {
-        return;
-    }
-
-    if (this.DeliveryStatus == DeliveryStatus.Encoding)
-    {
-        this.DeliveryStatus = DeliveryStatus.Completed;
-    }
-}
-
-
+            if (InvoiceNumber != null & Supplier != null)
+            {
+                if (this.DeliveryStatus == DeliveryStatus.Encoding)
+                {
+                    this.DeliveryStatus = DeliveryStatus.Completed;
+                }
+            }
+        }
 
 
         string remarks;
@@ -287,6 +265,7 @@ namespace Inventory.Module.BusinessObjects
 
 
         [VisibleInDetailView(false)]
+        [ModelDefault("AllowEdit", "False")]
         public DeliveryStatus DeliveryStatus
         {
             get => deliveryStatus;

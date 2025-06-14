@@ -114,7 +114,8 @@ namespace Inventory.Module.BusinessObjects
             set => SetPropertyValue(nameof(Remark), ref remark, value);
         }
 
-        
+
+        [ModelDefault("AllowEdit", "false")]
         public BoStatus BoStatus
         {
             get => boStatus;

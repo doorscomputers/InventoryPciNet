@@ -366,3 +366,21 @@ FodyWeavers.xsd
 *.zip
 *.txt
 *.gitattributes
+/Videos/FilterByDate.mp4
+/Excel/Branch StockTuguegarao.csv
+/Excel/BranchStock_Bambang.csv
+/Excel/BranchStock_Main.csv
+/Excel/BranchStock_Warehouse.csv
+/FindStock.sql
+/FindStock2.sql
+/NewCodes/New folder/spGetBranchStockPivot2.sql
+/NewSqlToAddBranchStocks/AddBranchStocks.sql
+/NewSqlToAddBranchStocks/NewspGetBranchStockPivot2.sql
+/PCINetFIndItem.sql
+/TriggerBackup/trgDeliveryDetail_InsertUpdate.sql
+/TriggerBackup/trgTransferDetail_Update.sql
+/TriggerBackup/trg_BoDetail_Insert.sql
+/TriggerBackup/trg_ManualInventoryDetail_Upsert.sql
+/TriggerBackup/trg_SaleDetail_Insert.sql
+/TriggerBackup/trg_SaleDetail_Update.sql
+/TriggerBackup/trg_WarrantyDetail_Insert.sql

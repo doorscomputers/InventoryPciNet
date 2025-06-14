@@ -15,6 +15,7 @@ namespace Inventory.Module.BusinessObjects
     //[DefaultListViewOptions(MasterDetailMode.ListViewOnly, true, NewItemRowPosition.Bottom)]
     //[VisibleInReports(true)]
     //[Appearance("HideNew", AppearanceItemType = "Action", TargetItems = "New", Enabled = false)]
+
     [RuleCriteria("ValidSaleQuantity", DefaultContexts.Save, "QtySold >= 0", SkipNullOrEmptyValues = false, UsedProperties = "QtySold", CustomMessageTemplate = "Quantity must be equal or greater than Zero.")] //Ensure the quantity is not 0
     [RuleCriteria("ValidSaleUnitPrice", DefaultContexts.Save, "Price >= 0", SkipNullOrEmptyValues = false, UsedProperties = "Price", CustomMessageTemplate = "Price must be equal or greater than Zero.")]
     //[Appearance("DisableOneDay", Criteria = "AddDays(Today(), -2) > CreatedDate", TargetItems = "*", Enabled = false)]
@@ -62,6 +63,7 @@ namespace Inventory.Module.BusinessObjects
 
 
         [RuleRequiredField(DefaultContexts.Save)]
+        
         public Stock Stock
 
         {
@@ -205,6 +207,8 @@ namespace Inventory.Module.BusinessObjects
 
         protected override void OnSaving()
         {
+            
+
             LastModifiedDate = GetCurrentTime();
             LastModifiedBy = Session.GetObjectByKey<Employee>(SecuritySystem.CurrentUserId);
             base.OnSaving();
@@ -298,6 +302,7 @@ namespace Inventory.Module.BusinessObjects
 
         
         [Association("Branch-SaleDetails")]
+        [VisibleInDetailView(false)]
         public Branch Branch
         {
             get => branch;

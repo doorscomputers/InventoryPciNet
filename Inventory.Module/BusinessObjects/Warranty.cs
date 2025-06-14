@@ -99,7 +99,8 @@ namespace Inventory.Module.BusinessObjects
             get => branch;
             set => SetPropertyValue(nameof(Branch), ref branch, value);
         }
-        
+
+        [ModelDefault("AllowEdit", "False")]
         public WarrantyStatus WarrantyStatus
         {
             get => warrantyStatus;

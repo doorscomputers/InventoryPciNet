@@ -4,6 +4,9 @@ using DevExpress.ExpressApp.Blazor.DesignTime;
 using DevExpress.ExpressApp.Blazor.Services;
 using DevExpress.ExpressApp.Design;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.XtraPrinting;
+using System.Diagnostics;              // for TraceLevel
+using DevExpress.Persistent.Base;      // for Tracing
 
 namespace Inventory.Blazor.Server;
 
@@ -12,7 +15,15 @@ public class Program : IDesignTimeApplicationFactory {
         return args.Any(arg => arg.TrimStart('/').TrimStart('-').ToLower() == argument.ToLower());
     }
     public static int Main(string[] args) {
-        if(ContainsArgument(args, "help") || ContainsArgument(args, "h")) {
+
+        Tracing.CreateCustomTracer += (s, e) => {
+            // optional: replace the default tracer, e.Tracer = new MyCustomTracer();
+        };
+        // Initialize at Info level (you can use TraceLevel.Verbose for more detail)
+        Tracing.Initialize((int)TraceLevel.Info);
+        // ────────────────────────────────────────────────────────────────
+
+        if (ContainsArgument(args, "help") || ContainsArgument(args, "h")) {
             Console.WriteLine("Updates the database when its version does not match the application's version.");
             Console.WriteLine();
             Console.WriteLine($"    {Assembly.GetExecutingAssembly().GetName().Name}.exe --updateDatabase [--forceUpdate --silent]");

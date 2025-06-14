@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -137,7 +138,8 @@ namespace Inventory.Module.BusinessObjects
             set => SetPropertyValue(nameof(Remarks), ref remarks, value);
         }
 
-        
+
+        [ModelDefault("AllowEdit", "false")]
         public TransferStatus TransferStatus
         {
             get => transferStatus;

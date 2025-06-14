@@ -124,7 +124,7 @@ namespace Inventory.Module.BusinessObjects
 
 
 
-
+        [ModelDefault("AllowEdit", "false")]
         public ManualInvStatus ManualInvStatus
         {
             get => manualInvStatus;
